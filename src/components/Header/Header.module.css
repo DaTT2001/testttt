@@ -1,0 +1,22 @@
+.link {
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 20px;
+}   
+.link:hover {
+    color: yellowgreen;
+}
+/* .headerMain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+} */
+.headerMain nav {
+    background-color: white !important;
+    border-bottom: 1px solid black;
+}

@@ -1,0 +1,45 @@
+.homeContainer {
+    margin-top: 80px;
+}
+.productList {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+
+}
+.productCard div{
+    display: flex;
+    flex-direction: column;
+}
+.title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 25px;
+}
+.price {
+    font-weight: 600;
+    font-size: 25px;
+    color: red;
+    text-align: center;
+}
+.landingBanner {
+    display: flex;
+    background-image: url('https://landing-page-prod-hn-ss-bfcplatform.cdn.vccloud.vn/landing-page-prod/Background_swezqecd.png');
+}
+.landingBanner img {
+    padding: 60px;
+}
+.landingBanner span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.landingBanner span h3{
+    font-weight: 700;
+}
+.productListTitle {
+    text-align: center;
+    margin-top: 30px;
+}
