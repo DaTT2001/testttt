@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import style from "./Product.module.css";
 import { Container } from "react-bootstrap";
 import { postObjectToApi } from "../../utils/API";
+import { toast } from 'react-toastify';
+
 const Product = () => {
   const [formData, setFormData] = useState({
     name: "",
-    age: "",
     phoneNumber: "",
     selectedServices: [],
     facebookLink: "",
@@ -76,19 +77,54 @@ const Product = () => {
     return value.startsWith("https://www.facebook.com/");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    for (const key in formErrors) {
-      if (formErrors[key] !== "") {
-        alert("Vui lòng điền đầy đủ thông tin");
-        return;
+    let hasErrors = false;
+    if(formData.name.trim() === '') {
+      hasErrors = true;
+      toast.error("Vui lòng điền đầy đủ thông tin");
+      return
+    }
+    if(formData.facebookLink.trim() === '') {
+      hasErrors = true;
+      toast.error("Vui lòng điền đầy đủ thông tin");
+      return
+    }
+    if(formData.phoneNumber.trim() === '') {
+      hasErrors = true;
+      toast.error("Vui lòng điền đầy đủ thông tin");
+      return
+    }
+    if(formData.selectedServices.length === 0) {
+      hasErrors = true;
+      toast.error("Vui lòng điền đầy đủ thông tin");
+      return
+    }
+    // for (const key in formErrors) {
+    //   if (formErrors[key] !== "") {
+    //     hasErrors = true;
+    //     toast.error("Vui lòng điền đầy đủ thông tin");
+    //     break;
+    //   }
+    // }
+    if (!hasErrors) {
+      try {
+        const responseData = await postObjectToApi(formData);
+    
+        if (responseData) {
+          toast.success("Thông tin đã được gửi");
+          setTimeout(() => {
+            window.location.href = '/'; 
+          }, 3000);
+        } else {
+          toast.error("Có lỗi xảy ra khi gửi dữ liệu, vui lòng thử lại");
+        }
+      } catch (error) {
+        // console.error('Lỗi khi gửi POST request:', error);
+        toast.error("Có lỗi xảy ra khi gửi dữ liệu, vui lòng thử lại");
       }
     }
-    postObjectToApi(formData);
-    alert(
-      "Dữ liệu đã được gửi, chúng tôi sẽ liên lạc với bạn trong vòng 1 giờ tới"
-    );
+    
   };
   const inputStyle = {
     marginBottom: "10px",
@@ -96,9 +132,9 @@ const Product = () => {
     width: "100%",
   };
 
-  const errorStyle = {
-    color: "red",
-  };
+  // const errorStyle = {
+  //   color: "red",
+  // };
 
   const labelStyle = {
     fontWeight: "bold",
@@ -124,22 +160,9 @@ const Product = () => {
               onChange={handleInputChange}
               style={inputStyle}
             />
-            <span className="error" style={errorStyle}>
+            {/* <span className="error" style={errorStyle}>
               {formErrors.name}
-            </span>
-          </div>
-          <div>
-            <label htmlFor="age" style={labelStyle}>
-              Tuổi:
-            </label>
-            <input
-              type="number"
-              id="age"
-              name="age"
-              value={formData.age}
-              onChange={handleInputChange}
-              style={inputStyle}
-            />
+            </span> */}
           </div>
           <div>
             <label htmlFor="phoneNumber" style={labelStyle}>
@@ -153,9 +176,9 @@ const Product = () => {
               onChange={handleInputChange}
               style={inputStyle}
             />
-            <span className="error" style={errorStyle}>
+            {/* <span className="error" style={errorStyle}>
               {formErrors.phoneNumber}
-            </span>
+            </span> */}
           </div>
           <div>
             <label style={labelStyle}>Gói dịch vụ:</label>
@@ -206,9 +229,9 @@ const Product = () => {
               />
               Gói 4
             </label>
-            <span className="error" style={errorStyle}>
+            {/* <span className="error" style={errorStyle}>
               {formErrors.selectedServices}
-            </span>
+            </span> */}
           </div>
           <div>
             <label style={labelStyle} htmlFor="facebookLink">
@@ -222,9 +245,9 @@ const Product = () => {
               onChange={handleInputChange}
               style={inputStyle}
             />
-            <span className="error" style={errorStyle}>
+            {/* <span className="error" style={errorStyle}>
               {formErrors.facebookLink}
-            </span>
+            </span> */}
           </div>
           <button
             type="submit"

@@ -7,7 +7,7 @@ const Header = () => {
     <div className={style.headerMain}>
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="./home">
+        <Navbar.Brand href="./">
          <img src='/logo.jpg' alt="Mô tả hình ảnh" width="100"  />
         </Navbar.Brand>
         {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
